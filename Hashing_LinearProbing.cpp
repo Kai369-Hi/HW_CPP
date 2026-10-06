@@ -5,6 +5,17 @@ int HashFunction(int key, int TableSize){
     return key % TableSize;
 }
 
+void insert(int HashTable[],int key,int TableSize){
+    int index = HashFunction(key,TableSize);
+    while(HashTable[index] != -1){
+        index++;
+        if(index >= TableSize){
+            index = 0; // wrap around to the beginning of the table
+        }
+    }
+    HashTable[index] = key;
+}
+
 int main(){
     int TableSize = 10,NumberOfKeys = 8;
     int HashTable[10]; 
@@ -15,8 +26,7 @@ int main(){
     }
 
     for(int i=0;i<NumberOfKeys;i++){
-        int index = HashFunction(keys[i],TableSize);
-        HashTable[index] = keys[i];
+        insert(HashTable, keys[i], TableSize);
     }
     for(int i=0;i<TableSize;i++){
         cout<< "Index "<< i <<": "<< HashTable[i] <<endl;
